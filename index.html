@@ -1,0 +1,365 @@
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   YouTube Downloader
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col items-center p-4">
+  <main class="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 space-y-6">
+   <h1 class="text-3xl font-semibold text-center text-gray-800">
+    YouTube Downloader
+   </h1>
+   <!-- Media Availability Circles -->
+   <section class="flex justify-center space-x-10">
+    <!-- YouTube available -->
+    <div class="flex flex-col items-center space-y-2">
+     <div aria-label="YouTube available for download" class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center shadow-md cursor-default" title="YouTube available">
+      <img alt="Red circle with white YouTube play icon in center" class="w-10 h-10" draggable="false" height="40" src="https://storage.googleapis.com/a1aa/image/da204824-3bc2-4453-316a-08f582ebce65.jpg" width="40"/>
+     </div>
+     <span class="text-sm font-medium text-gray-700 select-none">
+      YouTube
+     </span>
+    </div>
+    <!-- Facebook unavailable -->
+    <div aria-disabled="true" class="flex flex-col items-center space-y-2 opacity-40 cursor-not-allowed" title="Facebook not available">
+     <div aria-label="Facebook not available for download" class="w-16 h-16 rounded-full bg-blue-700 flex items-center justify-center shadow-md">
+      <img alt="Blue circle with white Facebook f icon in center" class="w-10 h-10" draggable="false" height="40" src="https://storage.googleapis.com/a1aa/image/eb3341f6-4c26-4bf1-fb38-c2d1b5df744e.jpg" width="40"/>
+     </div>
+     <span class="text-sm font-medium text-gray-700 select-none">
+      Facebook
+     </span>
+    </div>
+    <!-- Instagram unavailable -->
+    <div aria-disabled="true" class="flex flex-col items-center space-y-2 opacity-40 cursor-not-allowed" title="Instagram not available">
+     <div aria-label="Instagram not available for download" class="w-16 h-16 rounded-full bg-pink-500 flex items-center justify-center shadow-md">
+      <img alt="Pink circle with white Instagram camera icon in center" class="w-10 h-10" draggable="false" height="40" src="https://storage.googleapis.com/a1aa/image/cd0dd4b3-f1b3-4ed0-d0b7-ad07e71c479c.jpg" width="40"/>
+     </div>
+     <span class="text-sm font-medium text-gray-700 select-none">
+      Instagram
+     </span>
+    </div>
+   </section>
+   <!-- Notes -->
+   <section class="bg-yellow-50 border border-yellow-300 rounded-md p-4 text-yellow-900 text-sm space-y-2">
+    <p>
+     <i class="fas fa-info-circle mr-2">
+     </i>
+     Put the links/URL in the input address below.
+    </p>
+    <p>
+     <i class="fas fa-info-circle mr-2">
+     </i>
+     Only YouTube is available as of now.
+    </p>
+   </section>
+   <!-- Input for URL -->
+   <section>
+    <label class="block text-gray-700 font-semibold mb-1" for="urlInput">
+     Enter YouTube Video or Playlist Link
+    </label>
+    <input aria-describedby="urlHelp" autocomplete="off" class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent" id="urlInput" placeholder="https://www.youtube.com/watch?v=example or https://www.youtube.com/playlist?list=example" spellcheck="false" type="url"/>
+    <p class="text-xs text-gray-500 mt-1" id="urlHelp">
+     Supports single video or playlist links.
+    </p>
+   </section>
+   <!-- Save Location -->
+   <section>
+    <label class="block text-gray-700 font-semibold mb-1" for="saveLocation">
+     Save Location
+    </label>
+    <div class="flex items-center space-x-2">
+     <input aria-label="Save location path" class="flex-grow rounded-md border border-gray-300 px-4 py-2 bg-gray-100 cursor-not-allowed select-all" id="saveLocation" readonly="" type="text" value="C:\Users\acer\Documents\Jerico_John_Balasa\Tools\YouTube_Downloader"/>
+     <button aria-label="Open folder to select save location" class="flex items-center space-x-1 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 rounded" id="openFolderBtn" title="Open folder to select save location" type="button">
+      <i class="fas fa-folder-open fa-lg">
+      </i>
+      <span class="hidden sm:inline font-semibold">
+       Open
+      </span>
+     </button>
+    </div>
+    <p class="text-xs text-gray-500 mt-1">
+     Default save location is your system's Downloads folder.
+    </p>
+   </section>
+   <!-- Download Status & Controls (hidden initially) -->
+   <section aria-atomic="true" aria-live="polite" class="hidden flex flex-col items-center space-y-4 border-t border-gray-200 pt-6" id="downloadSection">
+    <div class="flex items-center space-x-3">
+     <div aria-label="Download progress status" class="relative w-16 h-16 rounded-full border-4 border-gray-300 flex items-center justify-center" id="circleStatus" role="img">
+      <svg aria-hidden="true" class="absolute top-0 left-0 w-16 h-16 transform -rotate-90" viewbox="0 0 100 100">
+       <circle cx="50" cy="50" fill="none" r="45" stroke="#e5e7eb" stroke-width="10">
+       </circle>
+       <circle cx="50" cy="50" fill="none" id="progressCircle" r="45" stroke="#ef4444" stroke-dasharray="282.6" stroke-dashoffset="282.6" stroke-linecap="round" stroke-width="10">
+       </circle>
+      </svg>
+      <span class="relative text-lg font-semibold text-gray-700 select-none" id="countText">
+       0/0
+      </span>
+      <svg aria-hidden="true" class="absolute w-10 h-10 text-gray-400" fill="none" id="slashIcon" stroke="currentColor" stroke-width="3" style="display:none;" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <line x1="4" x2="20" y1="20" y2="4">
+       </line>
+      </svg>
+     </div>
+     <div class="flex flex-col">
+      <span class="text-gray-700 font-medium select-text" id="downloadStatusText">
+       Processing download...
+      </span>
+      <progress aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="w-48 h-4 rounded-md overflow-hidden" id="downloadProgress" max="100" value="0">
+      </progress>
+     </div>
+    </div>
+    <button class="w-full sm:w-48 bg-red-600 text-white font-semibold py-2 rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 disabled:opacity-50 disabled:cursor-not-allowed" disabled="" id="downloadBtn" type="button">
+     Download
+    </button>
+   </section>
+  </main>
+  <script>
+   (() => {
+      // Elements
+      const urlInput = document.getElementById('urlInput');
+      const downloadSection = document.getElementById('downloadSection');
+      const countText = document.getElementById('countText');
+      const downloadStatusText = document.getElementById('downloadStatusText');
+      const downloadProgress = document.getElementById('downloadProgress');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const slashIcon = document.getElementById('slashIcon');
+      const progressCircle = document.getElementById('progressCircle');
+      const saveLocationInput = document.getElementById('saveLocation');
+      const openFolderBtn = document.getElementById('openFolderBtn');
+
+      // Constants
+      const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * 45; // r=45
+
+      // State
+      let videosToDownload = [];
+      let currentIndex = 0;
+      let errors = [];
+      let isDownloading = false;
+
+      // Utility: Update progress circle stroke dashoffset
+      function setProgress(percent) {
+        const offset = CIRCLE_CIRCUMFERENCE * (1 - percent / 100);
+        progressCircle.style.strokeDashoffset = offset;
+      }
+
+      // Utility: Validate YouTube URL (video or playlist)
+      function parseYouTubeUrl(url) {
+        try {
+          const u = new URL(url);
+          if (
+            (u.hostname === 'www.youtube.com' || u.hostname === 'youtube.com' || u.hostname === 'youtu.be') &&
+            (u.pathname === '/watch' || u.pathname === '/playlist' || u.hostname === 'youtu.be')
+          ) {
+            // Check if video or playlist
+            if (u.hostname === 'youtu.be') {
+              // Short video link
+              const videoId = u.pathname.slice(1);
+              if (videoId) return { type: 'video', id: videoId };
+            } else if (u.pathname === '/watch') {
+              const v = u.searchParams.get('v');
+              if (v) return { type: 'video', id: v };
+            } else if (u.pathname === '/playlist') {
+              const list = u.searchParams.get('list');
+              if (list) return { type: 'playlist', id: list };
+            }
+          }
+          return null;
+        } catch {
+          return null;
+        }
+      }
+
+      // Simulate fetching video list from YouTube link (video or playlist)
+      // In real app, this would call backend or ytdl-core to get playlist videos
+      function fetchVideosFromLink(linkInfo) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            if (linkInfo.type === 'video') {
+              resolve([{ id: linkInfo.id, title: `Video ID: ${linkInfo.id}` }]);
+            } else if (linkInfo.type === 'playlist') {
+              // Simulate playlist with 24 videos
+              const videos = [];
+              for (let i = 1; i <= 24; i++) {
+                videos.push({ id: `${linkInfo.id}_video${i}`, title: `Playlist Video ${i}` });
+              }
+              resolve(videos);
+            } else {
+              resolve([]);
+            }
+          }, 600);
+        });
+      }
+
+      // Simulate download of a single video with random error chance
+      // Returns Promise that resolves true if success, false if error
+      function downloadVideo(video) {
+        return new Promise((resolve) => {
+          // Simulate download time 300-800ms
+          const time = 300 + Math.random() * 500;
+          setTimeout(() => {
+            // 15% chance to fail download
+            const fail = Math.random() < 0.15;
+            resolve(!fail);
+          }, time);
+        });
+      }
+
+      // Update UI for current download progress
+      function updateDownloadUI() {
+        countText.textContent = `${currentIndex + 1}/${videosToDownload.length}`;
+        const percent = ((currentIndex) / videosToDownload.length) * 100;
+        setProgress(percent);
+        downloadProgress.value = percent;
+        downloadProgress.setAttribute('aria-valuenow', percent.toFixed(0));
+      }
+
+      // Reset UI and state
+      function resetDownloadUI() {
+        currentIndex = 0;
+        errors = [];
+        isDownloading = false;
+        setProgress(0);
+        downloadProgress.value = 0;
+        downloadProgress.setAttribute('aria-valuenow', 0);
+        countText.textContent = `0/0`;
+        downloadStatusText.textContent = 'Processing download...';
+        slashIcon.style.display = 'none';
+        downloadBtn.disabled = true;
+        downloadBtn.textContent = 'Download';
+      }
+
+      // Start bulk download workflow
+      async function startDownload() {
+        if (isDownloading) return;
+        isDownloading = true;
+        downloadBtn.disabled = true;
+        downloadStatusText.textContent = 'Starting download...';
+        slashIcon.style.display = 'none';
+
+        // Download videos sequentially, skipping errors
+        for (; currentIndex < videosToDownload.length; currentIndex++) {
+          updateDownloadUI();
+          downloadStatusText.textContent = `Downloading: ${videosToDownload[currentIndex].title}`;
+          const success = await downloadVideo(videosToDownload[currentIndex]);
+          if (!success) {
+            errors.push(videosToDownload[currentIndex]);
+            // Show slash icon on circle to indicate error on current video
+            slashIcon.style.display = 'block';
+            downloadStatusText.textContent = `Error downloading: ${videosToDownload[currentIndex].title}, skipping...`;
+            // Wait 1s so user can see error
+            await new Promise((r) => setTimeout(r, 1000));
+            slashIcon.style.display = 'none';
+          }
+          updateDownloadUI();
+        }
+
+        // After first pass, if errors exist, retry errors once
+        if (errors.length > 0) {
+          downloadStatusText.textContent = `Retrying ${errors.length} failed video(s)...`;
+          const retryErrors = [];
+          for (let i = 0; i < errors.length; i++) {
+            const video = errors[i];
+            updateDownloadUI();
+            downloadStatusText.textContent = `Retrying: ${video.title}`;
+            const success = await downloadVideo(video);
+            if (!success) {
+              retryErrors.push(video);
+              slashIcon.style.display = 'block';
+              downloadStatusText.textContent = `Error downloading again: ${video.title}`;
+              await new Promise((r) => setTimeout(r, 1000));
+              slashIcon.style.display = 'none';
+            }
+          }
+          errors = retryErrors;
+        }
+
+        // Final UI update
+        setProgress(100);
+        downloadProgress.value = 100;
+        downloadProgress.setAttribute('aria-valuenow', 100);
+        countText.textContent = `${videosToDownload.length}/${videosToDownload.length}`;
+        if (errors.length > 0) {
+          downloadStatusText.textContent = `Completed with ${errors.length} error(s). See console for details.`;
+          slashIcon.style.display = 'block';
+          console.warn('Videos failed to download:', errors);
+        } else {
+          downloadStatusText.textContent = 'Download completed successfully!';
+          slashIcon.style.display = 'none';
+        }
+        downloadBtn.disabled = false;
+        isDownloading = false;
+      }
+
+      // Handle URL input changes
+      urlInput.addEventListener('input', async () => {
+        resetDownloadUI();
+        const val = urlInput.value.trim();
+        if (!val) {
+          downloadSection.classList.add('hidden');
+          return;
+        }
+        const linkInfo = parseYouTubeUrl(val);
+        if (!linkInfo) {
+          downloadSection.classList.add('hidden');
+          return;
+        }
+        // Show download section
+        downloadSection.classList.remove('hidden');
+        downloadStatusText.textContent = 'Fetching video info...';
+        downloadBtn.disabled = true;
+        downloadBtn.textContent = 'Download';
+
+        // Fetch videos list
+        videosToDownload = await fetchVideosFromLink(linkInfo);
+        if (videosToDownload.length === 0) {
+          downloadStatusText.textContent = 'No videos found for this link.';
+          downloadBtn.disabled = true;
+          return;
+        }
+
+        // Update count text and button text
+        countText.textContent = `0/${videosToDownload.length}`;
+        setProgress(0);
+        downloadProgress.value = 0;
+        downloadProgress.setAttribute('aria-valuenow', 0);
+        if (linkInfo.type === 'playlist') {
+          downloadBtn.textContent = 'Download all';
+        } else {
+          downloadBtn.textContent = 'Download';
+        }
+        downloadBtn.disabled = false;
+      });
+
+      // Download button click
+      downloadBtn.addEventListener('click', () => {
+        if (videosToDownload.length === 0) return;
+        startDownload();
+      });
+
+      // Open folder button click - simulate opening system folder
+      openFolderBtn.addEventListener('click', () => {
+        // Since browser cannot open system folders, show alert with info
+        alert(
+          'Opening folder dialog is not supported in browser environment.\n\n' +
+            'Default save location is your system\'s Downloads folder.\n\n' +
+            'In a desktop app, this button would open a folder picker dialog.'
+        );
+      });
+
+      // Initialize progress circle stroke dasharray and offset
+      progressCircle.style.strokeDasharray = CIRCLE_CIRCUMFERENCE;
+      progressCircle.style.strokeDashoffset = CIRCLE_CIRCUMFERENCE;
+    })();
+  </script>
+ </body>
+</html>

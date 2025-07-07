@@ -1,11 +1,4 @@
-Here's a clean and well-structured `README.md` file for your YouTube Downloader Kivy app, including installation instructions, usage, and basic info:
-
----
-
-### 📄 `README.md`
-
-````markdown
-# 🎬 YouTube Downloader (Kivy UI)
+# 🎬 YouTube Downloader
 
 A desktop GUI application to download YouTube videos or playlists using a beautiful Kivy-based interface.
 
@@ -87,10 +80,6 @@ MIT License
 
 * [Kivy](https://kivy.org/)
 * [yt-dlp](https://github.com/yt-dlp/yt-dlp)
-
-```
-
----
 
 Let me know if you want:
 - A GitHub-style project structure

@@ -1,3 +1,0 @@
-kivy[base,media]==2.3.1
-kivy_examples==2.3.1
-yt-dlp>=2024.4.14

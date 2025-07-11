@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>YouTube Downloader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="../../resources/icon.png">
+  <link rel="stylesheet" href="./src/assets/main.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <script type="module" src="./src/app/dev/app.js"></script>
+  <script type="module" src="./src/modules/youtube_downloader.ts"></script>
+  <script type="module" src="./src/modules/youtube.downloader.usage.ts"></script>
+  <script type="module" src="./src/app/dev/check.builtin.app.ts"></script>
+</head>
+<body id="top-container" class="bg-gray-50 min-h-screen flex flex-col items-center p-4">
+  <main class="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 space-y-6">
+    <h1 class="text-3xl font-semibold text-center text-gray-800">YouTube Downloader</h1>
+    
+    <!-- Media Availability Circles -->
+    <section class="flex justify-center space-x-10">
+      <!-- YouTube available -->
+      <div class="flex flex-col items-center space-y-2">
+        <div aria-label="YouTube available for download" class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center shadow-md cursor-default" title="YouTube available">
+          <img alt="Red circle with white YouTube play icon in center" class="w-10 h-10" draggable="false" height="40" src="https://fonts.gstatic.com/s/i/productlogos/youtube/v9/192px.svg" width="40"/>
+        </div>
+        <span class="text-sm font-medium text-gray-700 select-none">YouTube</span>
+      </div>
+      
+      <!-- Facebook unavailable -->
+      <div aria-disabled="true" class="flex flex-col items-center space-y-2 opacity-40 cursor-not-allowed" title="Facebook not available">
+        <div aria-label="Facebook not available for download" class="w-16 h-16 rounded-full bg-blue-700 flex items-center justify-center shadow-md">
+          <img alt="Blue circle with white Facebook f icon in center" class="w-10 h-10" draggable="false" height="40" src="https://www.gstatic.com/kpui/social/fb_32x32.png" width="40"/>
+        </div>
+        <span class="text-sm font-medium text-gray-700 select-none">Facebook</span>
+      </div>
+      
+      <!-- Instagram unavailable -->
+      <div aria-disabled="true" class="flex flex-col items-center space-y-2 opacity-40 cursor-not-allowed" title="Instagram not available">
+        <div aria-label="Instagram not available for download" class="w-16 h-16 rounded-full bg-pink-500 flex items-center justify-center shadow-md">
+          <img alt="Pink circle with white Instagram camera icon in center" class="w-10 h-10" draggable="false" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABOFBMVEVHcExxF/13F/1zFf2AFv2MCu+iBOmyAuLEAd7SANraBMzwHpedI+XeANfmANHmAr+PF/6fD/vxAL7qArV7GP21FvnRVurnZ+P2Z9roQeDzGtXzB8v7AqvWiPn+7fn////7ftv/A7z0BKH3v/H+3fT+ruj+AJr/9/r/RcD/bMDKFff/Bo3iG+r8GrX/AIH+H5r/yeP+BHj/t9n/V5r+Am7+H37+BGT/ssX/Imz/RXv/ucz+e4z+JFT/XI3/MGL+LUf/u7f/yc7/Alr+OUf+MSz+QzT+R0T+iHD+SRj+VzH+WQX+AkL+c2L/0sT+aCX+cBL/7+j+aQL+eRv/oUX/fwL+iBD/wXz+jgD/3rr/1rn+dgz+nAP9FpT+lw7+qgH+tQD+vQD/w1f9kwf/xAD9PFn9ogj/ywD9uAfgLZLBAAAAaHRSTlMAW9H+////////xEsC///N////zFz/////////////////uP////7///////////7////////////////////////////////////////////////////////F/7VQ///+/87/vsj/uqL0GQwAAAHcSURBVHgBRMlFehwxEEDhV1VS04yZ7U04m+AmcBjfLLscJ4xLHyA0YGqSlJ7P9MT6BRC52EEQuDjlFITx2eWvXJsDQWYIKgJj4VQW5gBJAg75K5vTgZDTFUEu/kUEzqGaiC6DMBbhpqQyoyKTNYD1Hp+Ui6J0ZH1HhXNA0RfzyRIZl5WprroK3BZwwvx0aUGdB87HCIN5VBUVP9i468ZLxWLv+pg6vJmDaSiSW2eyIRNg84/HxfVJmTD3DxFWGmWjrosRpxMNGr3iIqYbG7IGK5lKvZE3jVuTynsDzHRoD3xpxaTQvIKumGBWgCouM9bPKEisJg0VTV4X0aBqQEuXQ2kGlmVmZCtgCoxBJfeAz0b8NQbWI7wOAKCZMgbn9E6tItG1HFTKRQ4jgSYpiiPu6BFJW1fW9J7oDFWWgpf0MH09YnB6yIEYnIJhLhqkpw3aC4OuUJ4QlDzX55/Um5m4Ue6dmXr59LwkBM0xy/ieVNV7zSSTZMU3fs8UNBomr+v3jQx5X1XmB7tdgnNu1JqDl+0nbnp+HpLp+WM5bB0mIMJFc/ouSgjd+U99O1qYONOhFEMonPcZCZ6eGp9eRcSwhWkSRCIxKnfeIMBh1WRcFOhTaENo/096OTA7AACDzKODDThakgAAAABJRU5ErkJggg==" width="40"/>
+        </div>
+        <span class="text-sm font-medium text-gray-700 select-none">Instagram</span>
+      </div>
+    </section>
+    
+    <!-- Notes -->
+    <section class="bg-yellow-50 border border-yellow-300 rounded-md p-4 text-yellow-900 text-sm space-y-2">
+      <p><i class="fas fa-info-circle mr-2"></i>Put the links/URL in the input address below.</p>
+      <p><i class="fas fa-info-circle mr-2"></i>Only YouTube is available as of now.</p>
+    </section>
+    
+    <!-- Input for URL -->
+    <section>
+      <label class="block text-gray-700 font-semibold mb-1" for="urlInput">Enter YouTube Video or Playlist Link</label>
+      <input aria-describedby="urlHelp" autocomplete="off" class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent" id="urlInput" placeholder="https://www.youtube.com/watch?v=example or https://www.youtube.com/playlist?list=example" spellcheck="false" type="url"/>
+      <p class="text-xs text-gray-500 mt-1" id="urlHelp">Supports single video or playlist links.</p>
+    </section>
+    
+    <!-- Save Location -->
+    <section>
+      <label class="block text-gray-700 font-semibold mb-1" for="saveLocation">Save Location</label>
+      <div class="flex items-center space-x-2">
+        <input aria-label="Save location path" class="flex-grow rounded-md border border-gray-300 px-4 py-2 bg-gray-100 cursor-not-allowed select-all" id="saveLocation" readonly="" type="text" value=""/>
+        <button aria-label="Open folder to select save location" class="flex items-center space-x-1 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 rounded px-2 py-1" id="openFolderBtn" title="Open folder to select save location" type="button">
+          <i class="fas fa-folder-open fa-lg"></i>
+          <span class="hidden sm:inline font-semibold">Browse</span>
+        </button>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Click "Browse" to select a folder where downloads will be saved.</p>
+    </section>
+    
+    <!-- Download Status & Controls (hidden initially) -->
+    <section aria-atomic="true" aria-live="polite" class="hidden flex flex-col items-center space-y-4 border-t border-gray-200 pt-6" id="downloadSection">
+      <div class="flex items-center space-x-3">
+        <div aria-label="Download progress status" class="relative w-16 h-16 rounded-full border-4 border-gray-300 flex items-center justify-center" id="circleStatus" role="img">
+          <svg aria-hidden="true" class="absolute top-0 left-0 w-16 h-16 transform -rotate-90" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" fill="none" r="45" stroke="#e5e7eb" stroke-width="10"></circle>
+            <circle cx="50" cy="50" fill="none" id="progressCircle" r="45" stroke="#ef4444" stroke-dasharray="282.6" stroke-dashoffset="282.6" stroke-linecap="round" stroke-width="10"></circle>
+          </svg>
+          <span class="relative text-lg font-semibold text-gray-700 select-none" id="countText">0/0</span>
+          <svg aria-hidden="true" class="absolute w-10 h-10 text-gray-400" fill="none" id="slashIcon" stroke="currentColor" stroke-width="3" style="display:none;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" x2="20" y1="20" y2="4"></line>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-gray-700 font-medium select-text" id="downloadStatusText">Processing download...</span>
+          <progress aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="w-48 h-4 rounded-md overflow-hidden" id="downloadProgress" max="100" value="0"></progress>
+        </div>
+      </div>
+      <button class="w-full sm:w-48 bg-red-600 text-white font-semibold py-2 rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 disabled:opacity-50 disabled:cursor-not-allowed" disabled="" id="downloadBtn" type="button">Download</button>
+    </section>
+  </main>
+</body>
+</html>
